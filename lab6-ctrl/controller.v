@@ -42,125 +42,125 @@ module controller (
     always @(posedge clk) begin
         if (rst) begin
             // Reset state: Go to INST_ADDR
-            sel = 0;
-            rd = 0;
-            ld_ir = 0;
-            halt = 0;
-            inc_pc = 0;
-            ld_ac = 0;
-            ld_pc = 0;
-            wr = 0;
-            data_e = 0;
+            sel <= 0;
+            rd <= 0;
+            ld_ir <= 0;
+            halt <= 0;
+            inc_pc <= 0;
+            ld_ac <= 0;
+            ld_pc <= 0;
+            wr <= 0;
+            data_e <= 0;
         end else begin
             // Case statement for phase
             case (phase)
                 INST_ADDR: begin
-                    sel = 1;
-                    rd = 0;
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 1;
+                    rd <= 0;
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 INST_FETCH: begin
-                    sel = 1;
-                    rd = 1;
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 1;
+                    rd <= 1;
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 INST_LOAD: begin
-                    sel = 1;
-                    rd = 1;
-                    ld_ir = 1;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 1;
+                    rd <= 1;
+                    ld_ir <= 1;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 IDLE: begin
-                    sel = 1;
-                    rd = 1;
-                    ld_ir = 1;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 1;
+                    rd <= 1;
+                    ld_ir <= 1;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 OP_ADDR: begin
-                    sel = 0;
-                    rd = 0;
-                    ld_ir = 0;
-                    halt = (opcode == HLT); // only if opcode is HLT
-                    inc_pc = 1;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 0;
+                    rd <= 0;
+                    ld_ir <= 0;
+                    halt <= (opcode == HLT); // only if opcode is HLT
+                    inc_pc <= 1;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 OP_FETCH: begin
-                    sel = 0;
-                    rd = alu_op;  // ALU_OP for ADD, AND, XOR, LDA
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 0;
-                    data_e = 0;
+                    sel <= 0;
+                    rd <= alu_op;  // ALU_OP for ADD, AND, XOR, LDA
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 0;
+                    data_e <= 0;
                 end
 
                 ALU_OP: begin
-                    sel = 0;
-                    rd = alu_op;  // ALU_OP for ADD, AND, XOR, LDA
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = (opcode == SKZ) && zero;
-                    ld_ac = 0;
-                    ld_pc = (opcode == JMP);
-                    wr = 0;
-                    data_e = (opcode == STO);
+                    sel <= 0;
+                    rd <= alu_op;  // ALU_OP for ADD, AND, XOR, LDA
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= (opcode == SKZ) && zero;
+                    ld_ac <= 0;
+                    ld_pc <= (opcode == JMP);
+                    wr <= 0;
+                    data_e <= (opcode == STO);
                 end
 
                 STORE: begin
-                    sel = 0;
-                    rd = alu_op;  // ALU_OP for ADD, AND, XOR, LDA
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = 0;
-                    ld_pc = 0;
-                    wr = 1;
-                    data_e = 1;
+                    sel <= 0;
+                    rd <= alu_op;  // ALU_OP for ADD, AND, XOR, LDA
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= 0;
+                    ld_pc <= 0;
+                    wr <= 1;
+                    data_e <= 1;
                 end
 
                 default: begin
                     // Handle default or unknown phases
-                    sel = 0;
-                    rd = 0;
-                    ld_ir = 0;
-                    halt = 0;
-                    inc_pc = 0;
-                    ld_ac = alu_op;  // ALU_OP for ADD, AND, XOR, LDA
-                    ld_pc = (opcode == JMP);
-                    wr = (opcode == STO);
-                    data_e = (opcode == STO);
+                    sel <= 0;
+                    rd <= 0;
+                    ld_ir <= 0;
+                    halt <= 0;
+                    inc_pc <= 0;
+                    ld_ac <= alu_op;  // ALU_OP for ADD, AND, XOR, LDA
+                    ld_pc <= (opcode == JMP);
+                    wr <= (opcode == STO);
+                    data_e <= (opcode == STO);
                 end
             endcase
         end
